@@ -1,20 +1,20 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using BlogApp.Models;
+using Microsoft.EntityFrameworkCore;
+using BlogApp.Data;
 
 namespace BlogApp.Controllers;
 
 public class ArticlesController : Controller
 {
-    private readonly ILogger<ArticlesController> _logger;
+    private readonly MvcArticleContext _context;
 
-    public ArticlesController(ILogger<ArticlesController> logger)
+    public ArticlesController(MvcArticleContext context)
     {
-        _logger = logger;
+        _context = context;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        return View(await _context.Article.ToListAsync());
     }
 }

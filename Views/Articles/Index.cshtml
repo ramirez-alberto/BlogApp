@@ -1,7 +1,29 @@
+@model IEnumerable<BlogApp.Models.Article>
 @{
-    ViewData["Title"] = "Blog List";
+    ViewData["Title"] = "Blog Articles";
 }
 
-<h2>My Blog List</h2>
+<h1>My Blog List</h1>
 
-<p>Hello from our View Template!</p>
+<p>
+    <a asp-action="Create">Create New Article</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model){
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+        </tr>
+        }
+            
+    </tbody>
+</table>
