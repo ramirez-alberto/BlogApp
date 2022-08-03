@@ -12,7 +12,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                    @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CreatedDate)
@@ -23,7 +23,9 @@
         @foreach (var item in Model){
         <tr>
             <td>
+                <a asp-action="show" asp-route-id="@item.ArticleID">
                 @Html.DisplayFor(modelItem => item.Title)
+                </a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedDate)

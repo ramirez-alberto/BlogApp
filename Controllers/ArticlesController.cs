@@ -17,4 +17,19 @@ public class ArticlesController : Controller
     {
         return View(await _context.Article.ToListAsync());
     }
+
+    public async Task<IActionResult> Show(int? id)
+    {
+        if (id == null || _context.Article == null)
+        {
+            return NotFound();
+        }
+
+        var article = await _context.Article
+            .FirstOrDefaultAsync(m => m.ArticleID == id);
+        if (article == null)
+            return NotFound();
+
+        return View(article);
+    }
 }
