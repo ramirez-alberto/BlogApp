@@ -81,6 +81,7 @@ namespace BlogApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,ReleaseDate,Genre,Price,Rating")] Movie movie)
         {
+            //calls ModelState.IsValid to check whether the movie has any validation errors
             if (ModelState.IsValid)
             {
                 _context.Add(movie);
