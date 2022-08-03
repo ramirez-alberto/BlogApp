@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace BlogApp.Models
 {
-    public static class SeedData
+    public static class SeedDataMovies
     {
         public static void Initialize(IServiceProvider serviceProvider)
         {
