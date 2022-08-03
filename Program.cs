@@ -13,22 +13,24 @@ if (builder.Environment.IsDevelopment())
 {
     // builder.Services.AddDbContext<MvcMovieContext>(options =>
     //     options.UseSqlite(builder.Configuration.GetConnectionString("MvcMovieContext")));
-    builder.Services.AddDbContext<MvcMovieContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("MvcMovieContext") ?? throw new InvalidOperationException("Connection string 'MvcMovieContext' not found.")));
+    builder.Services.AddDbContext<MvcArticleContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("MvcArticleContext") ?? throw new InvalidOperationException("Connection string 'MvcArticleContext' not found.")));
 
 }
 else
 {
-    builder.Services.AddDbContext<MvcMovieContext>(options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("ProductionMvcMovieContext")));
+    builder.Services.AddDbContext<MvcArticleContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("ProductionMvcArticleContext")));
+    // builder.Services.AddDbContext<MvcMovieContext>(options =>
+    //     options.UseSqlServer(builder.Configuration.GetConnectionString("ProductionMvcMovieContext")));
 }
 var app = builder.Build();
 
-using( var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    SeedData.Initialize(services);
-}
+// using( var scope = app.Services.CreateScope())
+// {
+//     var services = scope.ServiceProvider;
+//     SeedData.Initialize(services);
+// }
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
