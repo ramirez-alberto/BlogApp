@@ -31,6 +31,11 @@ var app = builder.Build();
 //     var services = scope.ServiceProvider;
 //     SeedData.Initialize(services);
 // }
+using( var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    SeedDataArticles.Initialize(services);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
