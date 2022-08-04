@@ -6,11 +6,11 @@ namespace BlogApp.Models
     public class Article
     {
         public int ArticleID { get; set; }
-        [Display(Name ="Article")]
         [Required]
         [MaxLength(50, ErrorMessage = "Length must be less then 50 characters")]
         public string Title { get; set; }
 
+        [MinLength(10)]
         [DataType(DataType.MultilineText)]
         public string? Body { get; set; }
         public DateTime CreatedDate { get; set; }

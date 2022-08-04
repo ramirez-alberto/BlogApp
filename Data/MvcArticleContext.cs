@@ -13,7 +13,7 @@ public class MvcArticleContext : DbContext
     {
     }
 
-    public override int SaveChanges()
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         var entries = ChangeTracker
             .Entries()
@@ -31,7 +31,7 @@ public class MvcArticleContext : DbContext
             }
         }
 
-        return base.SaveChanges();
+        return base.SaveChangesAsync();
     }
     public DbSet<BlogApp.Models.Article> Article { get; set; } = default!;
 }
