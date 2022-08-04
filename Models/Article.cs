@@ -6,9 +6,10 @@ namespace BlogApp.Models
     public class Article
     {
         public int ArticleID { get; set; }
-        [Required]
+
+        [Required(ErrorMessage ="Title is required")]
         [MaxLength(50, ErrorMessage = "Length must be less then 50 characters")]
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
         [MinLength(10)]
         [DataType(DataType.MultilineText)]

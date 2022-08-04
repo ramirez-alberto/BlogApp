@@ -52,4 +52,61 @@ public class ArticlesController : Controller
         }
         return View(article);
     }
+
+    public async Task<IActionResult> Edit(int? id)
+    {
+        if (id is null || _context.Article is null)
+        {
+            return NotFound();
+        }
+
+        var article = await _context.Article.FindAsync(id);
+
+        if (article is null)
+        {
+            return NotFound();
+        }
+
+        return View(article);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, [Bind("ArticleID,Title,Body")] Article article)
+    {
+        if (id != article.ArticleID)
+        {
+            return NotFound();
+        }
+
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                _context.Update(article);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ArticleExists(article.ArticleID))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        return View(article);
+    }
+
+    
+
+    private bool ArticleExists(int id)
+    {
+        return (_context.Article?.Any(e => e.ArticleID == id)).GetValueOrDefault();
+    }
 }
