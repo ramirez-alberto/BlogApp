@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BlogApp.Data;
+using BlogApp.Models;
 
 namespace BlogApp.Controllers;
 
@@ -30,6 +31,25 @@ public class ArticlesController : Controller
         if (article == null)
             return NotFound();
 
+        return View(article);
+    }
+
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create([Bind("ArticleID,Title,Body")] Article article)
+    {
+        if (ModelState.IsValid)
+        {
+            _context.Add(article);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
+        }
         return View(article);
     }
 }
