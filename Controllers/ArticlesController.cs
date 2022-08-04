@@ -100,10 +100,46 @@ public class ArticlesController : Controller
             return RedirectToAction(nameof(Index));
         }
 
+
+        return View(article);
+    }
+    public async Task<IActionResult> Delete(int? id)
+    {
+        if (id is null || _context.Article is null)
+        {
+            return NotFound();
+        }
+
+        var article = await _context.Article
+            .FirstOrDefaultAsync(m => m.ArticleID == id);
+        if (article is null)
+        {
+            return NotFound();
+        }
+
         return View(article);
     }
 
-    
+    [HttpPost,ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteConfirmed(int id)
+    {
+        if (_context.Article is null)
+        {
+            return Problem("Entity set 'MvcArticleContext.Article'  is null.");
+        }
+
+        var article = await _context.Article.FindAsync(id);
+        if (article is not null)
+        {
+            _context.Article.Remove(article);
+        }
+
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(Index));
+    }
+
+
 
     private bool ArticleExists(int id)
     {
