@@ -34,5 +34,6 @@ public class MvcArticleContext : DbContext
         return base.SaveChangesAsync();
     }
     public DbSet<BlogApp.Models.Article> Article { get; set; } = default!;
+    public DbSet<BlogApp.Models.Comment> Comment { get; set; } = default!;
 }
 

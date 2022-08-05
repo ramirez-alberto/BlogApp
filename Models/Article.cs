@@ -16,5 +16,8 @@ namespace BlogApp.Models
         public string? Body { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
+
+        //Collection  navigation property
+        public ICollection<Comment>? Comments {get; set;}
     }
 }
