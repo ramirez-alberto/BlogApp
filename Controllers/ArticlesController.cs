@@ -31,11 +31,17 @@ public class ArticlesController : Controller
         if (article == null)
             return NotFound();
 
-        return View(article);
+        var newComment = new Comment();
+        newComment.ArticleID = article.ArticleID; // this will be sent from the ArticleDetails View, hold on :).
+
+        var showArticleVM = new ShowArticleViewModel { Article = article, Comment = newComment };
+
+        return View(showArticleVM);
     }
 
     public IActionResult Create()
     {
+
         return View();
     }
 
@@ -62,7 +68,7 @@ public class ArticlesController : Controller
                 "Try again, and if the problem persists " +
                 "see your system administrator.");
         }
-        
+
         return View(article);
     }
 

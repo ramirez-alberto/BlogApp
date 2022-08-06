@@ -11,8 +11,8 @@ namespace BlogApp.Models
         public DateTime UpdatedDate { get; set; }
 
         //Inverse navigation property
-        [Required]
-        public Article? Article { get; set; }
+        public int ArticleID {get;set;}
+        public Article Article { get; set; }
     }
 
 }
