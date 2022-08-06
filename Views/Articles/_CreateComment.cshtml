@@ -1,14 +1,11 @@
 @model BlogApp.Models.Comment
 
 @{
-    Model.ArticleID = (int)(ViewData["articleID"]);
+    Model.ArticleID = (int)(ViewData["ArticleID"]);
 }
-<h1>Create</h1>
 
-<h4>Comment</h4>
+<h4>Add a Comment</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
         <form asp-controller="Comments" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ArticleID" />
@@ -26,9 +23,6 @@
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
-    </div>
-</div>
-
 <div>
     <a asp-action="Index">Back to List</a>
 </div>

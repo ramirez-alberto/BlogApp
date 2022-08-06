@@ -61,11 +61,14 @@ namespace BlogApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ArticleID,CommentID,Commenter,Body")] Comment comment)
         {
-            if (ModelState.IsValid)
+            if ((_context.Article?.Any(e => e.ArticleID == comment.ArticleID)).GetValueOrDefault())
             {
-                _context.Add(comment);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _context.Add(comment);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
             return View(comment);
         }

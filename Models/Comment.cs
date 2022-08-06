@@ -12,7 +12,7 @@ namespace BlogApp.Models
 
         //Inverse navigation property
         public int ArticleID {get;set;}
-        public Article Article { get; set; }
+        public Article? Article { get; set; }
     }
 
 }

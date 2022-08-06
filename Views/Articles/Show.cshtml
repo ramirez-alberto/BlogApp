@@ -8,7 +8,7 @@
 
 <div>
     <h4>Article</h4>
-        <form asp-action="Delete" asp-route-id="@Model?.Article.ArticleID">
+    <form asp-action="Delete" asp-route-id="@Model?.Article.ArticleID">
         <input type="hidden" asp-for="Article.ArticleID" />
         <input type="submit" value="Delete" class="btn btn-danger" />
     </form>
@@ -45,5 +45,24 @@
     <a asp-action="Delete" asp-route-id="@Model?.Article.ArticleID">Edit</a>
     <a asp-action="Index">Back to List</a>
 </div>
+<div>
+    <h4>Comments</h4>
 
-@await Html.PartialAsync("_CreateComment",Model.Comment, new ViewDataDictionary(ViewData){{"articleID", 1}})
+@*    @foreach (var item in Model.Article.Comments)
+    {
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(modelItem => item.Commenter)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(modelItem => item.Commenter)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(modelItem => item.Body)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(modelItem => item.Body)
+        </dd>
+    }
+*@
+</div>
+@await Html.PartialAsync("_CreateComment", Model.Comment, new ViewDataDictionary(ViewData){{"ArticleID", Model.Article.ArticleID}})
