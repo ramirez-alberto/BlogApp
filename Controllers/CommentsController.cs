@@ -46,11 +46,15 @@ namespace BlogApp.Controllers
         }
 
         // GET: Comments/Create
-        public IActionResult Create(int articleID)
+        public async Task<IActionResult> Create(int id)
         {
-            var newComment = new Comment();
-            newComment.ArticleID = articleID; // this will be sent from the ArticleDetails View, hold on :).
 
+            if(!(await _context.Article.AnyAsync(a => a.ArticleID == id)))
+            {
+                return NotFound();
+            }
+            var newComment = new Comment();
+            newComment.ArticleID = id; // this will be sent from the ArticleDetails View, hold on :).
             return View(newComment);
         }
 
@@ -67,7 +71,7 @@ namespace BlogApp.Controllers
                 {
                     _context.Add(comment);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction("Show",controllerName:"Articles",new {id = comment.ArticleID});
                 }
             }
             return View(comment);
