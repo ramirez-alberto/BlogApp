@@ -1,1 +1,28 @@
-A placeholder for Create
+@model BlogApp.Models.Comment
+
+<h4>Add a Comment</h4>
+<hr />
+        <form asp-controller="Comments" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ArticleID" />
+            <div class="form-group">
+                <label asp-for="Commenter" class="control-label"></label>
+                <input asp-for="Commenter" class="form-control" />
+                <span asp-validation-for="Commenter" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Body" class="control-label"></label>
+                <textarea asp-for="Body" class="form-control"> </textarea>
+                <span asp-validation-for="Body" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

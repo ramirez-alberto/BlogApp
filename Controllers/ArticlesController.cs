@@ -27,16 +27,14 @@ public class ArticlesController : Controller
         }
 
         var article = await _context.Article
+            .Include(a => a.Comments)
+            .AsNoTracking()
             .FirstOrDefaultAsync(m => m.ArticleID == id);
+
         if (article == null)
             return NotFound();
 
-        var newComment = new Comment();
-        newComment.ArticleID = article.ArticleID; // this will be sent from the ArticleDetails View, hold on :).
-
-        var showArticleVM = new ShowArticleViewModel { Article = article, Comment = newComment };
-
-        return View(showArticleVM);
+        return View(article);
     }
 
     public IActionResult Create()
